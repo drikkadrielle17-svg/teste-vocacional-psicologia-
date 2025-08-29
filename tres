@@ -1,0 +1,86 @@
+const questions = [
+  {
+    question: "Você gosta de trabalhar com pessoas que precisam de apoio emocional?",
+    options: [
+      { text: "Sim, muito", area: "Psicologia Clínica" },
+      { text: "Não muito", area: "Psicologia Organizacional" },
+      { text: "Depende da situação", area: "Psicologia Escolar" },
+    ]
+  },
+  {
+    question: "Você se interessa por pesquisas e estudos científicos?",
+    options: [
+      { text: "Sim", area: "Psicologia Experimental" },
+      { text: "Não muito", area: "Psicologia Clínica" },
+      { text: "Mais ou menos", area: "Psicologia Organizacional" },
+    ]
+  },
+  {
+    question: "Você gostaria de ajudar pessoas a melhorarem seu desempenho no trabalho?",
+    options: [
+      { text: "Sim", area: "Psicologia Organizacional" },
+      { text: "Não", area: "Psicologia Clínica" },
+      { text: "Talvez", area: "Psicologia Escolar" },
+    ]
+  },
+  {
+    question: "Você se sente atraído por crianças e adolescentes?",
+    options: [
+      { text: "Sim", area: "Psicologia Escolar" },
+      { text: "Não muito", area: "Psicologia Clínica" },
+      { text: "Mais ou menos", area: "Psicologia Organizacional" },
+    ]
+  },
+];
+
+let currentQuestion = 0;
+let scores = {};
+
+const questionEl = document.getElementById("question");
+const optionsEl = document.getElementById("options");
+const nextBtn = document.getElementById("nextBtn");
+const resultSection = document.getElementById("result");
+const quizSection = document.getElementById("quiz");
+const areaEl = document.getElementById("area");
+const descriptionEl = document.getElementById("description");
+
+function loadQuestion() {
+  const q = questions[currentQuestion];
+  questionEl.textContent = q.question;
+  optionsEl.innerHTML = "";
+  q.options.forEach(option => {
+    const btn = document.createElement("button");
+    btn.textContent = option.text;
+    btn.onclick = () => selectOption(option.area);
+    optionsEl.appendChild(btn);
+  });
+}
+
+function selectOption(area) {
+  scores[area] = (scores[area] || 0) + 1;
+  currentQuestion++;
+  if (currentQuestion < questions.length) {
+    loadQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  quizSection.classList.add("hidden");
+  resultSection.classList.remove("hidden");
+  const sortedAreas = Object.entries(scores).sort((a,b) => b[1] - a[1]);
+  const topArea = sortedAreas[0][0];
+  areaEl.textContent = topArea;
+  
+  const descriptions = {
+    "Psicologia Clínica": "Foca em ajudar pessoas a lidar com questões emocionais e psicológicas.",
+    "Psicologia Organizacional": "Atua no desenvolvimento de pessoas e melhoria do ambiente de trabalho.",
+    "Psicologia Escolar": "Trabalha com alunos e educação, auxiliando no desenvolvimento acadêmico e social.",
+    "Psicologia Experimental": "Envolve pesquisa científica para estudar comportamento e processos mentais."
+  };
+
+  descriptionEl.textContent = descriptions[topArea];
+}
+
+loadQuestion();
