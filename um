@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste Vocacional - Psicologia</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>Teste Vocacional: Descubra sua Área na Psicologia</h1>
+    <p>Responda algumas perguntas e descubra qual área da Psicologia combina mais com você!</p>
+  </header>
+
+  <main>
+    <section id="quiz">
+      <div class="question-container">
+        <h2 id="question">Pergunta aqui</h2>
+        <div id="options"></div>
+      </div>
+      <button id="nextBtn">Próxima</button>
+    </section>
+
+    <section id="result" class="hidden">
+      <h2>Seu Resultado:</h2>
+      <p id="area"></p>
+      <p id="description"></p>
+      <button onclick="location.reload()">Refazer Teste</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>Inspirado na estética Capricho | Feito por você 💖</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
